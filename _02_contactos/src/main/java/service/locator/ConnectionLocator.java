@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionLocator {
 
-	//	Bloque estático que lo qu ehace es que se ejecute una única vez en la vida del programa
+	//	Bloque estático que lo que hace es que se ejecute una única vez en la vida del programa
 	static {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
