@@ -22,8 +22,8 @@ public class MostrarContactosServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContactoService service=ContactoServiceFactory.getContactosService();
 		
-		List<Contacto> nombres = service.mostrarAgenda();
-		request.setAttribute("nombres", nombres);
+		List<Contacto> listacontactos = service.mostrarAgenda();
+		request.setAttribute("contactosquepasoalajsp", listacontactos);
 		request.getRequestDispatcher("MostrarContactos.jsp").forward(request, response);
 	}
 

@@ -63,15 +63,17 @@ public class ContactoServiceImpl1 implements ContactoService {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
-				Contacto contacto=new Contacto(rs.getInt(1), rs.getString("nombre"),rs.getString("email"),rs.getInt("edad"));
+			//	Contacto contacto=new Contacto(rs.getInt(1), rs.getString("nombre"),rs.getString("email"),rs.getInt("edad"));
+				Contacto contacto=new Contacto(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getInt(4));
 				listacontactos.add(contacto);				
 			}
-			return listacontactos;
+		
 		}
 		catch(SQLException ex) {
 			ex.printStackTrace();
 			return null;
 		}
+		return listacontactos;
 	}
 	
 	public List<String> listaNombres () {

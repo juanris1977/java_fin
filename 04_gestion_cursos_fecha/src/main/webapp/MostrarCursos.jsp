@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"  import="java.util.List ,model.Contacto"%>
+    pageEncoding="ISO-8859-1"  import="java.util.List , model.Curso"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +24,7 @@
 		<br>
 		<br>
 	    <br>
-	    <h2>Listado de contactos</h2>
+	    <h2>Listado de cursos</h2>
 	    <br>
 	
 
@@ -33,15 +33,16 @@
 		<br>
 		<br>
 	    
-		<%List<Contacto> contactos=(List<Contacto>)request.getAttribute("contactosquepasoalajsp");%>		  
+		<%List<Curso> cursos=(List<Curso>)request.getAttribute("cursos");%>		  
 		
 		<table border="4" cellpadding="5">
-			<tr><th><FONT SIZE=4>  Nombre  </FONT></th><th><FONT SIZE=4>  Email  </FONT> </th><th><FONT SIZE=4>  Edad  </FONT></tr>
-			<%for(Contacto c: contactos){%>
+			<tr><th><FONT SIZE=4>  Nombre  </FONT></th><th><FONT SIZE=4>  Precio  </FONT> </th><th><FONT SIZE=4>  Duración  </FONT><th><FONT SIZE=4>  Fecha inicio  </FONT></tr>
+			<%for(Curso c: cursos){%>
 				<tr>
-					<td><center><%=c.getNombre()%> </center></td>					
-					<td><center><%=c.getEmail()%> </center></td>
-					<td><center><%=c.getEdad()%> </center></td>
+					<td><center><%=c.getNombrecurso()%> </center></td>				
+					<td><center><%=c.getPrecio()%> </center></td>
+					<td><center><%=c.getDuracion()%> </center></td>
+					<td><center><%=c.getFechainicio()%> </center></td>
 							
 				</tr>		
 			<%}%>   
