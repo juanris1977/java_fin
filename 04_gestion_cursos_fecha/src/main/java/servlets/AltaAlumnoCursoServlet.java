@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,18 +11,25 @@ import service.CursoService;
 import service.CursoServiceFactory;
 
 
-@WebServlet("/MostrarCursosFechaServlet")
-public class MostrarCursosFechaServlet extends HttpServlet {
+@WebServlet("/AltaAlumnoCursoServlet")
+public class AltaAlumnoCursoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CursoService service = CursoServiceFactory.getCursoService();
-				
-	LocalDate fecha= LocalDate.parse(request.getParameter("fecha"));   // fecha nos viene en un string, para pasarlo a LocalDate (yyyy-MM-dd) hacemos un parse simple
-	//	LocalDate fecha= LocalDate.parse("2024-01-01");
-		request.setAttribute("cursos", service.cursosPorFechaInicioMax(fecha));
 		
-		request.getRequestDispatcher("MostrarCursos.jsp").forward(request, response);
+		int idcurso = Integer.parseInt(request.getParameter("curso"));
+		int nota = Integer.parseInt(request.getParameter("nota"));
+		String dni = request.getParameter("dni");
+		String nombre = request.getParameter("nombre");
+		String email = request.getParameter("email");
+		
+		service.AltaAlumnoCurso(dni, nombre, email, idcurso, nota);  
+		request.getRequestDispatcher("inicio.html").forward(request, response);
+
+
 	}
+
 }
