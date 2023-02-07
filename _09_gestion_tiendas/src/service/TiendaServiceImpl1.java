@@ -7,11 +7,10 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.List;
-
-
 
 import model.Pedido;
 import service.locator.ConnectionLocator;
@@ -24,12 +23,15 @@ public class TiendaServiceImpl1 implements TiendaService{
 			
 			try(Connection con = ConnectionLocator.getConnection();){
 				con.setAutoCommit(false);  // Para que no se haga autocommit
-				String sql="insert into pedidos(producto,unidades,fecha) values(?,?,?)";
+				String sql="insert into pedidos(producto,unidades,fecha, insertado) values(?,?,?,?)";
 				PreparedStatement ps=con.prepareStatement(sql);
 				for (Pedido pedido:pedidos) {	
 					ps.setString(1, pedido.getProducto());
 					ps.setInt(2, pedido.getUnidades());
 					ps.setDate(3, Date.valueOf(pedido.getFecha()));  // hay que transformar LocalDate a sqlDate
+				//	ps.setDate(4,  Date.valueOf(LocalDate.now()));  // hay que transformar LocalDate a sqlDate
+					ps.setTimestamp(4,  Timestamp.valueOf(LocalDateTime.now()));  // hay que transformar LocalDate a sqlDate
+
 					ps.execute();
 				}
 				con.commit();  //  Se confirman a la base de datos todos a la vez
@@ -48,6 +50,8 @@ public class TiendaServiceImpl1 implements TiendaService{
 			ps.setString(1, pedido.getProducto());
 			ps.setInt(2, pedido.getUnidades());
 			ps.setDate(3, Date.valueOf(pedido.getFecha()));  // hay que transformar LocalDate a sqlDate
+			ps.setDate(4,  Date.valueOf(LocalDate.now()));  // hay que transformar LocalDate a sqlDate
+
 			ps.execute();
 		}
 		catch(SQLException ex) {

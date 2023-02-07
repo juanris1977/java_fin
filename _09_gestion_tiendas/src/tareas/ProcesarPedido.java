@@ -14,7 +14,6 @@ public class ProcesarPedido implements Runnable {
 		this.ruta = ruta;
 	}
 	
-	
 	@Override
 	public void run() {
 		
