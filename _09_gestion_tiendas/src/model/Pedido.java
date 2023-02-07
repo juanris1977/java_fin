@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Alumno {
+public class Pedido {
+	private int idpedido;
+	private String producto;
+	private int unidades;
+	private LocalDate fecha;
 
-	private String idalumno;
-	private String nombre;
-	private String email;
-	private double nota;
-	private int idcurso;
 }

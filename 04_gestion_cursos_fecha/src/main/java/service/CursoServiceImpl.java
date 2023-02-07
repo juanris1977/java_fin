@@ -75,13 +75,16 @@ public class CursoServiceImpl implements CursoService{
 			PreparedStatement ps = con.prepareStatement(sql);	
 			ps.setInt(1, idcurso);			
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {			
-				Alumno alumno=new Alumno(rs.getString(1), 
-						              rs.getString(2),
-						              rs.getString(3),
-						              rs.getDouble(4), 
-									  rs.getInt(5)       
-									 ); 
+			while (rs.next()) {		
+				String dni = rs.getString("idalumno");
+				String nombre =  rs.getString("nombre");
+				String email =  rs.getString("email");
+				Double nota = rs.getDouble("nota");
+				// comprobamos si era nulo
+			//	nota = rs.wasNull() ? null : nota ;   //  Si lo que habia en la columna era nulo, lo mantiene, sino, devuelve el numero
+				int curso =  rs.getInt("idcurso");    
+				
+				Alumno alumno=new Alumno(dni, nombre, email, nota, curso);  // quiero que nota pueda guardarse como nulo
 				alumnos.add(alumno);				
 			}	
 		}
@@ -93,14 +96,14 @@ public class CursoServiceImpl implements CursoService{
 	}
 	
 	@Override
-	public void AltaAlumnoCurso (String dni, String  nombre, String email, int idcurso, int nota) {
+	public void AltaAlumnoCurso (String dni, String  nombre, String email, double nota , int idcurso) {
 		try(Connection con = ConnectionLocator.getConnection();){
-			String sql="insert into alumnos (idalumno, nombre, email, nota, idcurso) values (?,?,?,?,?)";
+			String sql="insert into alumnos (idalumno, nombre, email,nota,  idcurso) values (?,?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);	
 			ps.setString(1, dni);	
 			ps.setString(2, nombre);		
 			ps.setString(3, email);
-			ps.setInt(4, nota);
+			ps.setDouble(4, nota);
 			ps.setInt(5, idcurso);
 			ps.execute();
 		}

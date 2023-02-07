@@ -11,7 +11,7 @@ public interface CursoService {
 	List<Curso> cursosPorFechaInicioMax(LocalDate fechalimite);
 	List<Curso> listaCursos();
 	List<Alumno> listaAlumnosCurso(int idcurso);
-	void AltaAlumnoCurso (String dni, String  nombre, String email, int idcurso, int nota);
+	void AltaAlumnoCurso (String dni, String  nombre, String email,double nota,  int idcurso);
 	String nombreCurso(int idcurso);
 
 	

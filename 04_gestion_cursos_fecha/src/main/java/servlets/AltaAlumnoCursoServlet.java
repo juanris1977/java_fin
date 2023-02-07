@@ -21,12 +21,12 @@ public class AltaAlumnoCursoServlet extends HttpServlet {
 		CursoService service = CursoServiceFactory.getCursoService();
 		
 		int idcurso = Integer.parseInt(request.getParameter("curso"));
-		int nota = Integer.parseInt(request.getParameter("nota"));
+		Integer nota = Integer.parseInt(request.getParameter("nota"));
 		String dni = request.getParameter("dni");
 		String nombre = request.getParameter("nombre");
 		String email = request.getParameter("email");
 		
-		service.AltaAlumnoCurso(dni, nombre, email, idcurso, nota);  
+		service.AltaAlumnoCurso(dni, nombre, email, nota, idcurso);  
 		request.getRequestDispatcher("inicio.html").forward(request, response);
 
 
