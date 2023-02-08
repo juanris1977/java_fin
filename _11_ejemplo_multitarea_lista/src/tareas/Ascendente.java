@@ -6,6 +6,7 @@ public class Ascendente implements  Runnable {
 
 	private List<String> lista;
 	
+	
 	public Ascendente (List<String> lista) {
 		this.lista = lista;
 	}

@@ -1,7 +1,7 @@
 package principal;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import tareas.Ascendente;
 import tareas.Descendente;
@@ -10,7 +10,10 @@ public class Lanzador {
 
 	public static void main(String[] args) throws InterruptedException {
 		
-		List<String> textos = new ArrayList<>();
+	//	List<String> textos = new ArrayList<>();
+		
+		List<String> textos = new CopyOnWriteArrayList<>();  //safe
+		
 		Ascendente t1=new Ascendente(textos);
 		Descendente t2=new Descendente(textos);
 		
@@ -21,7 +24,7 @@ public class Lanzador {
 		
 		System.out.println(
 							textos.size()
-						   );
+						   ); //
 		}
 	}
 
