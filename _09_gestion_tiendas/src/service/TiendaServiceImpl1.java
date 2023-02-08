@@ -5,8 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -59,6 +62,9 @@ public class TiendaServiceImpl1 implements TiendaService{
 		}
 	}
 	
+	
+
+
 	@Override
 	public List<Pedido> leerPedidos (String rutafichero) {
 		
@@ -81,8 +87,42 @@ public class TiendaServiceImpl1 implements TiendaService{
 		
 		
 	}
-}
+	
+	@Override
+	public int totalUnidadesPedidas() {
+		try(Connection con = ConnectionLocator.getConnection();){
+			String sql = "Select sum(unidades) as total from pedidos" ;
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);  // Sólo va hacia adelante y no se puede volver y sólo es de Lectura
+				rs.next(); 
+				return  (rs.getInt("total"));    //  te da el valor de esa fila para la columna edad 				
+			}
+		
+		catch (SQLException ex) {
+			ex.printStackTrace();
+			return 0;
+		}	
+	}
 
+
+	@Override
+	public String ultimoProducto() {
+		try(Connection con = ConnectionLocator.getConnection();){
+			String sql = "Select producto from pedidos order by fecha desc limit 1" ;
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);  // Sólo va hacia adelante y no se puede volver y sólo es de Lectura
+				rs.next();  //para acceder al primero 
+				return  (rs.getString("producto"));    //  te da el valor de esa fila para la columna edad 				
+			}
+		
+		catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
+}
+	
 
 
 

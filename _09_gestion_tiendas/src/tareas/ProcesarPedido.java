@@ -8,7 +8,7 @@ import service.TiendaServiceFactory;
 
 public class ProcesarPedido implements Runnable {
 
-	String ruta;
+	private String ruta;
 	
 	public ProcesarPedido (String ruta) {
 		this.ruta = ruta;

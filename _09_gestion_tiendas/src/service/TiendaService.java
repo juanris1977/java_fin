@@ -11,5 +11,8 @@ public interface TiendaService {
 	
 	public List<Pedido> leerPedidos (String rutafichero);
 	
+	public int totalUnidadesPedidas();
+	public String ultimoProducto(); 
+	
 
 }
