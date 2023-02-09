@@ -7,5 +7,6 @@ public interface ServiceCovid {
 	List<String> paises () ;
 	double incidenciaAcumulada(String pais);
 	int casosTotales();
-
+	int casosTotalesGroup();
+	int  casosTotalesPais(String pais);
 }
