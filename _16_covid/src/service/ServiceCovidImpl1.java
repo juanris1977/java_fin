@@ -49,6 +49,7 @@ public class ServiceCovidImpl1 implements ServiceCovid {
 		@Override
 		public int  casosTotales() {
 			LocalDate fechaMax=fechaMasReciente();
+	
 			return locator.getJsonStream()
 					.filter(it -> it.getIndicador().equals("cases") && convertirTextoFecha(it.getFecha()).equals(fechaMax))					
 				    .collect(Collectors.summingInt(it -> it.getAcumulados()));
