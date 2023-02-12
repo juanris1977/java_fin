@@ -35,6 +35,7 @@ public class Login extends JFrame {
 		
 		JLabel lb1 = new JLabel("Usuario");
 		lb1.setBounds(100, 100, 50, 30);
+		
 		this.add(lb1);
 		
 		JLabel lb2 = new JLabel("Contraseña");

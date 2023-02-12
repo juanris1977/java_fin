@@ -1,6 +1,7 @@
 package presentacion;
 
 import java.awt.Color;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,14 +29,17 @@ public class MiVentana extends JFrame {
 		this.setVisible(true);               //  hace la ventana visible
 	}
 	
+	public int factorial(int numero) {			
+				  if (numero==0)
+				    return 1;
+				  else
+				    return numero * factorial(numero-1);			
+	}
+	
 	void inicializarComponentes () {
 		//Anular el gestor de organización (Layout)
 		this.setLayout(null);
 		
-		
-		// Le damos "accion" al botón , implementando la interfaz ActionListener
-		
-		//bt.addActionListener(e->JOptionPane.showMessageDialog(MiVentana.this, "OLEEEEEE !!!!!!!!  "));
 		
 		
 		JLabel lb = new JLabel("Introduce un número:");
@@ -49,12 +53,18 @@ public class MiVentana extends JFrame {
 		JButton bt = new JButton("Calcular Factorial");  // Creaccion dle control
 		bt.setBounds(200, 150, 150, 30);           //  propiedades del control			
 		
+	
+		
 		
 		
 		JLabel res = new JLabel("");
 		res.setBounds(50, 250, 200, 30);
 		
-		bt.addActionListener(e-> res.setText("El resultado de factorial de"+(t1.getText())));   // Al pulsar en el boton, pone el texto a la etiqueta 
+	
+			
+		
+		bt.addActionListener(e-> res.setText("El factorial de "+(t1.getText())+" es "+factorial(Integer.parseInt(t1.getText()))));   // Al pulsar en el boton, pone el texto a la etiqueta 
+	//	bt.addMouseListener((MouseListener) this);   // Al pulsar en el boton, pone el texto a la etiqueta 
 		
 		
 		

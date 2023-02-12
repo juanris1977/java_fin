@@ -23,7 +23,7 @@ public class Lanzador {
 		future.whenCompleteAsync( (r,e) -> System.out.println("Los casos totales en europa son   ---------------------->>>>: "+r));
 		
 		
-	    /*	service.paises()   //  Nos da una lista de string con los nombres de los paises
+	   /* 	service.paises()   //  Nos da una lista de string con los nombres de los paises
 			  // .stream()   // Stream <String>     sobra, porque el foreach puede hacerse en una lista directamente
 			   .forEach(p -> System.out.println("Incidencia acumulada de "+p+": " +  service.incidenciaAcumulada(p)));  */
 		
@@ -32,7 +32,7 @@ public class Lanzador {
 		service.paises()
 		       .forEach( p -> exec.submit( ()-> System.out.println("Incidencia acumulada de "+p+": " +  service.incidenciaAcumulada(p))));
 		
-		
+	
 		exec.shutdown();
 
 		
