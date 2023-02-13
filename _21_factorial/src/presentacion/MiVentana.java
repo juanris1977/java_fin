@@ -2,6 +2,9 @@ package presentacion;
 
 import java.awt.Color;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.stream.IntStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,7 +23,7 @@ public class MiVentana extends JFrame {
 		
 		this.setBounds(1200, 200, 500, 500);   // a 100 en horizontal , a 50 en vertical, ..., de ancho 700 y 500 de alto 		
 
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);   	//Configurar el botón de cierre de la ventana
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);   	//Configurar el botón de cierre de la ventana
 		
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);  //Poner color a la ventana
 		
@@ -29,11 +32,13 @@ public class MiVentana extends JFrame {
 		this.setVisible(true);               //  hace la ventana visible
 	}
 	
-	public int factorial(int numero) {			
-				  if (numero==0)
+	 int factorial(int numero) {			
+			/*	  if (numero==0)
 				    return 1;
 				  else
-				    return numero * factorial(numero-1);			
+				    return numero * factorial(numero-1);		*/
+		 return IntStream.rangeClosed(1, numero)
+				         .reduce(1, (a,b) -> a*b);
 	}
 	
 	void inicializarComponentes () {
@@ -47,26 +52,68 @@ public class MiVentana extends JFrame {
 		
 		
 		JTextField t1 = new JTextField();
-		t1.setBounds(200, 50, 100, 30);
-		this.add(t1);
+		t1.setBounds(200, 50, 20, 30);
+		
 		
 		JButton bt = new JButton("Calcular Factorial");  // Creaccion dle control
 		bt.setBounds(200, 150, 150, 30);           //  propiedades del control			
 		
-	
-		
-		
-		
 		JLabel res = new JLabel("");
 		res.setBounds(50, 250, 200, 30);
-		
-	
 			
-		
 		bt.addActionListener(e-> res.setText("El factorial de "+(t1.getText())+" es "+factorial(Integer.parseInt(t1.getText()))));   // Al pulsar en el boton, pone el texto a la etiqueta 
-	//	bt.addMouseListener((MouseListener) this);   // Al pulsar en el boton, pone el texto a la etiqueta 
+	
 		
+		//hacer que pregunte si realmente quieres cerrar la ventana al cerrarla, debemos implementar un metodo de window listener , lo haremos con una clase anonima
 		
+		this.addWindowListener(new WindowListener () {   // el new es el nombre de la interfaz a implementar
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				int op = JOptionPane.showConfirmDialog(MiVentana.this, "¿Desea salir?");
+				if (op==JOptionPane.YES_OPTION) {
+					MiVentana.this.dispose();
+				}				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				Color color = new Color ((int)(Math.random()*256) , (int)(Math.random()*256) , (int)(Math.random()*256));
+				MiVentana.this.getContentPane().setBackground(color);  // cambia el color de fondo a la ventana				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			
+		});
 		
 		this.add(bt);  //añadir el control (en este caso un boton) a la ventana
 		this.add(t1); 
