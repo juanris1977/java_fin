@@ -1,7 +1,10 @@
 package service;
 
-public interface LibrosService {
+import java.util.List;
 
-	boolean comprobarLogin(String usuario, String pass);
+import model.Libro;
+
+public interface LibrosService {
+	List<Libro> listaLibros ();
 
 }

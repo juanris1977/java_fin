@@ -7,12 +7,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import service.ClientesService;
+import service.LibreriaServiceFactory;
 import service.LibrosService;
-import service.LibrosServiceFactory;
 
 public class Autenticar extends JFrame {
 
@@ -44,7 +47,8 @@ public class Autenticar extends JFrame {
 	 * Create the frame.
 	 */
 	public Autenticar() {
-		LibrosService service = LibrosServiceFactory.getLibrosService();
+		ClientesService clientes = LibreriaServiceFactory.getClientesService();
+		LibrosService libros = LibreriaServiceFactory.getLibrosService();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -66,7 +70,7 @@ public class Autenticar extends JFrame {
 		contentPane.add(txtusuario);
 		txtusuario.setColumns(10);
 		
-		txtpass = new JTextField();
+		txtpass = new JPasswordField();
 		txtpass.setBounds(118, 70, 86, 20);
 		contentPane.add(txtpass);
 		txtpass.setColumns(10);
@@ -74,18 +78,24 @@ public class Autenticar extends JFrame {
 		res.setBounds(118, 178, 233, 14);
 
 		
-		JButton btnNewButton = new JButton("Entrar");
+		JButton btnNewButton = new JButton("Comprobar");
+		
 		btnNewButton.addActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent e) {
-				if (!service.comprobarLogin(txtusuario.getText(), txtpass.getText())) {
-					res.setText("Credenciales incorrectas");
+				String mensaje;
+				if(clientes.comprobarLogin(txtusuario.getText(), txtpass.getText())) {
+					//creamos la ventana de libros y le pasamos la lista de libros
+					new VentanaLibros(libros.listaLibros());
 				}else {
-					res.setText("Credenciales correctas");					
+					JOptionPane.showMessageDialog(Autenticar.this, "Usuario no válido");
 				}
+				
 			}
 		});
-		btnNewButton.setBounds(118, 124, 89, 23);
+				
+		
+		
+		btnNewButton.setBounds(118, 124, 110, 23);
 		contentPane.add(btnNewButton);
 		
 

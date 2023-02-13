@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import service.locator.ConectionLocator;
 
 
-public class ServiceLibrosImpl1 implements LibrosService {
+public class ClientesServiceImpl1 implements ClientesService {
 	
 	@Override
 	public boolean comprobarLogin(String usuario, String pass) {
