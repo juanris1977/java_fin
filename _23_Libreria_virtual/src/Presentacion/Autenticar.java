@@ -24,6 +24,7 @@ public class Autenticar extends JFrame {
 	private JTextField txtpass;
 	private JTextField textField;
 	private JLabel res;
+	private JButton btnTemasCombo;
 
 	/**
 	 * Launch the application.
@@ -50,7 +51,7 @@ public class Autenticar extends JFrame {
 		ClientesService clientes = LibreriaServiceFactory.getClientesService();
 		LibrosService libros = LibreriaServiceFactory.getLibrosService();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 312, 290);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -78,11 +79,11 @@ public class Autenticar extends JFrame {
 		res.setBounds(118, 178, 233, 14);
 
 		
-		JButton btnNewButton = new JButton("Comprobar");
+		JButton btnNewButton = new JButton("ver nombres de libros");
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String mensaje;
+				
 				if(clientes.comprobarLogin(txtusuario.getText(), txtpass.getText())) {
 					//creamos la ventana de libros y le pasamos la lista de libros
 					new VentanaLibros(libros.listaLibros());
@@ -95,7 +96,7 @@ public class Autenticar extends JFrame {
 				
 		
 		
-		btnNewButton.setBounds(118, 124, 110, 23);
+		btnNewButton.setBounds(118, 124, 170, 31);
 		contentPane.add(btnNewButton);
 		
 
@@ -103,7 +104,41 @@ public class Autenticar extends JFrame {
 		
 
 		contentPane.add(res);
+		
+		JButton btnlistastemas = new JButton("ver temas en texto");
+		btnlistastemas.setBounds(118, 172, 170, 31);
+		
+		btnlistastemas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(clientes.comprobarLogin(txtusuario.getText(), txtpass.getText())) {
+					//creamos la ventana de temas y hacemos el combobox
+					new VentanaTemasTextArea(libros.listaTemas());
+				}else {
+					JOptionPane.showMessageDialog(Autenticar.this, "Usuario no válido");
+				}
+				
+			}
+		});
+		contentPane.add(btnlistastemas);
+		
+		btnTemasCombo = new JButton("ver temas en combo");
+		btnTemasCombo.setBounds(118, 213, 170, 31);
+		
+		btnTemasCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(clientes.comprobarLogin(txtusuario.getText(), txtpass.getText())) {
+					//creamos la ventana de temas y hacemos el combobox
+					new VentanaTemasCombo(libros.listaTemas());
+				}else {
+					JOptionPane.showMessageDialog(Autenticar.this, "Usuario no válido");
+				}
+				
+			}
+		});
+		
+		contentPane.add(btnTemasCombo);
 	
 	}
-
 }
