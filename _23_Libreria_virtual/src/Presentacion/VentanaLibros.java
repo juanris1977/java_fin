@@ -25,7 +25,7 @@ public class VentanaLibros extends JFrame {
 		
 		this.libros=libros;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 900);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -33,7 +33,8 @@ public class VentanaLibros extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTextArea talibros = new JTextArea();
-		talibros.setBounds(84, 33, 243, 112);
+		talibros.setBounds(84, 33, 243, 400); //
+		
 		contentPane.add(talibros);
 		
 		JButton btsalir = new JButton("Salir");
@@ -42,7 +43,7 @@ public class VentanaLibros extends JFrame {
 				VentanaLibros.this.dispose();
 			}
 		});
-		btsalir.setBounds(165, 186, 89, 23);
+		btsalir.setBounds(165, 500, 89, 23);
 		contentPane.add(btsalir);
 		
 		
@@ -50,7 +51,8 @@ public class VentanaLibros extends JFrame {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				//recogemos la lista de libros y la volcamos en el TextArea
-				libros.forEach(l->talibros.setText(talibros.getText()+l.getTitulo()+"<br>"));    //  no entiendo esta linea !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				talibros.setLineWrap(true);   // para ajuste de linea automatico
+				libros.forEach(l->talibros.setText(talibros.getText()+l.getTitulo()+"\n"));    //  no entiendo esta linea !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			}
 		});
 
