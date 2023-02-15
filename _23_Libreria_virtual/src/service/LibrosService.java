@@ -8,5 +8,6 @@ import model.Tema;
 public interface LibrosService {
 	List<Libro> listaLibros ();
 	List<Tema> listaTemas();
+	List<Libro> librosTema (String tema);
 
 }

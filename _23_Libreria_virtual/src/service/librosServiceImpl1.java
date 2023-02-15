@@ -43,6 +43,34 @@ public class librosServiceImpl1 implements LibrosService {
 	}
 
 	@Override
+	public List<Libro> librosTema(String tema) {
+		List<Libro> libros = new ArrayList<>();
+		try(Connection con = ConectionLocator.getConnection();){
+			String sql="select libros.isbn , libros.titulo, libros.autor, libros.precio, libros.paginas, "
+					+ "libros.idtema from libros , temas  where tema = ? and libros.idtema = temas.idtema";			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, tema);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {			
+				Libro libro=new Libro(rs.getInt("isbn"), 
+						              rs.getString("titulo"),
+						              rs.getString("autor"),
+						              rs.getDouble("precio"), 
+						              rs.getInt("paginas"),
+						              rs.getInt("idtema")									  
+									 ); 
+				libros.add(libro);				
+			}	
+		}
+		catch(SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		return libros;
+		
+		
+	}
+
+	@Override
 	public List<Tema> listaTemas() {
 		List<Tema> temas = new ArrayList<>();
 		try(Connection con = ConectionLocator.getConnection();){

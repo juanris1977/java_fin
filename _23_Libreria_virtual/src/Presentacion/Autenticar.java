@@ -16,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 import service.ClientesService;
 import service.LibreriaServiceFactory;
 import service.LibrosService;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Autenticar extends JFrame {
 
@@ -123,6 +125,16 @@ public class Autenticar extends JFrame {
 		contentPane.add(btnlistastemas);
 		
 		btnTemasCombo = new JButton("ver temas en combo");
+		
+		// Como hacer que escuche que hemos pulsado intro
+		btnTemasCombo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					btnTemasCombo.doClick();
+				}
+			}
+		});
 		btnTemasCombo.setBounds(118, 213, 170, 31);
 		
 		btnTemasCombo.addActionListener(new ActionListener() {

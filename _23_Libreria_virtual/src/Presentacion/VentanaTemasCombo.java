@@ -1,26 +1,31 @@
 package Presentacion;
 
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JList;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import datamodel.AdaptadorComboTemas;
-import datamodel.AdaptadorListaTemas;
+import datamodel.AdaptadorTablaLibros;
+import model.Libro;
 import model.Tema;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import service.LibreriaServiceFactory;
+import service.LibrosService;
+import javax.swing.JTable;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 
@@ -28,19 +33,14 @@ public class VentanaTemasCombo extends JFrame {
 
 	private JPanel contentPane;
 	private List<Tema> temas;
+	private JTable tablelibros;
+	private JScrollPane scrollPane_1 ;
 
-	/**
-	 * Launch the application.
-	 */
 	
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaTemasCombo(List<Tema> temas) {
 		this.temas=temas;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 816, 359);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -48,64 +48,53 @@ public class VentanaTemasCombo extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setToolTipText("seleccione tema");
-		scrollPane.setName("");
+	
 		scrollPane.setBounds(50, 50, 224, 30);
 		contentPane.add(scrollPane);
 		
-		JComboBox<Tema> comboTemas = new JComboBox<>();
-		
-		/*listTemas.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				// Obtenemos el elemento seleccionado y mostramos sus datos
-			/*	Ciudad c = listCiudades.getSelectedValue();
-				JOptionPane.showMessageDialog(VentanaCiudades.this, c.getNombre()+":"+c.getPoblacion());
-		    */
-				
-		/*		//Al seleccionar un elemento, preguntar si queremos eliminar esa ciudad, y si dice que sí, se eliminará
-				if (JOptionPane.showConfirmDialog(VentanaCiudades.this, "¿Desea eliminar la ciudad?")==JOptionPane.YES_OPTION) {
-					Ciudad c = listCiudades.getSelectedValue();
-					CiudadesService service = new CiudadesService();
-					service.eliminarCiudad(c.getNombre());
-					//reasignar adaptador a la lista
-					regenerarLista(listCiudades);
-
-				}
-				
-				
-			}
-		});*/
+		JComboBox<Tema> comboTemas = new JComboBox<Tema>();
+		LibrosService service = LibreriaServiceFactory.getLibrosService();
 		scrollPane.setViewportView(comboTemas);
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(50, 107, 677, 180);
+		contentPane.add(scrollPane_1);		
+		tablelibros = new JTable();
+		scrollPane_1.setViewportView(tablelibros);
 		
-		JLabel lblNewLabel = new JLabel("Seleccione tema");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel.setBounds(52, 10, 116, 30);
-		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("Salir");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaTemasCombo.this.dispose();
-			}
-		});
-		btnNewButton.setBounds(128, 130, 85, 21);
-		contentPane.add(btnNewButton);
+		VentanaTemasCombo.this.setVisible(true);
+		
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				// crear el adaptador con el modelos de datos y asignar al JList 
+			
 				regenerarLista(comboTemas);
 				
 				
 			}
 		});
-		this.setVisible(true);
+		
+		comboTemas.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				Tema t =  (Tema) comboTemas.getSelectedItem();  // cogemos el tema seleccionado
+							
+				var adapter1 = new AdaptadorTablaLibros( t.getTema());
+				tablelibros.setModel(adapter1); 
+				scrollPane_1.setVisible(true);   // ahora que ya está relleno lo mostramos
+			
+			}
+		});
+		
 		
 	}
 	
 	public void regenerarLista (JComboBox <Tema> lista ) { 
 		var adapter = new AdaptadorComboTemas();
 		lista.setModel(adapter);  // El adaptador es un listmodel porque heredamos defaultListModel que implementa Listmodel
+		lista.addItem(new Tema(0, "Seleccione tema"));   // Sirve para "ponerle" titulo al combo
+		scrollPane_1.setVisible(false);   // tenemos que dejarlo en false hasta que lo rellenemos
+
 	}
 }
