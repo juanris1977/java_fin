@@ -7,7 +7,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -61,6 +65,10 @@ public class VentanaTemasCombo extends JFrame {
 		tablelibros = new JTable();
 		scrollPane_1.setViewportView(tablelibros);
 		
+		JLabel lbhora = new JLabel("");
+		lbhora.setBounds(609, 11, 86, 14);
+		contentPane.add(lbhora);
+		
 		
 		VentanaTemasCombo.this.setVisible(true);
 		
@@ -71,6 +79,12 @@ public class VentanaTemasCombo extends JFrame {
 				// crear el adaptador con el modelos de datos y asignar al JList 
 			
 				regenerarLista(comboTemas);
+				
+				ScheduledExecutorService executor=Executors.newSingleThreadScheduledExecutor();
+				executor.scheduleAtFixedRate(()->{
+					LocalTime time=LocalTime.now();
+					lbhora.setText(time.toString());
+				}, 0,1, TimeUnit.SECONDS);
 				
 				
 			}
