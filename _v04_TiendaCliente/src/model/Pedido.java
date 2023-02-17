@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Pedido implements Serializable{
 
-	private static final long serialVersionUID = -500591070188352174L;
+	
 
+	private static final long serialVersionUID = 1L;
 	private int idpedido;
 	private String producto;
 	private int unidades;

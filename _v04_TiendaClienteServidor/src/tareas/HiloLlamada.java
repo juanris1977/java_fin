@@ -24,15 +24,16 @@ public class HiloLlamada  implements Runnable{
 		//para leer y escribir por el socket el javabean serializado
 		try( /*ObjectInputStream in=new ObjectInputStream(socket.getInputStream());			
 			 PrintStream out=new PrintStream(socket.getOutputStream());){*/
-			InputStream is = socket.getInputStream();
-			ObjectInputStream ois = new ObjectInputStream(is);
+			
+			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 					
 			PrintStream out=new PrintStream(socket.getOutputStream());
 		   ){
 			
 				
-			System.out.println("Pedido recibido, lo guardamos en la bbdd ");
+			
 			Pedido pedido = (Pedido) ois.readObject();
+			System.out.println(pedido.getProducto()+ "!!!!!!   :recibido, lo guardamos en la bbdd ");
 			
 			service.guardarPedido(pedido);
 			out.println("Tu mensaje ha sido procesado");

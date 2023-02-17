@@ -8,11 +8,12 @@ import java.net.Socket;
 import model.Pedido;
 
 public class ServiceTiendaClienteImpl1 implements ServiceTiendaCliente {
+	
 	public void enviarPedido (String producto, int unidades , String tienda) {
 		Pedido pedido = new Pedido (0, producto, unidades, tienda);
 		
 		try (
-			Socket soc = new Socket ("localhost" , 8000);
+			Socket soc = new Socket ("10.1.3.41" , 8000);
 		    OutputStream os = soc.getOutputStream();
 		    ObjectOutputStream oos = new ObjectOutputStream(os);) {
 		    

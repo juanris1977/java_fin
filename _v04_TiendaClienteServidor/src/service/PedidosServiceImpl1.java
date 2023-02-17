@@ -16,7 +16,7 @@ public class PedidosServiceImpl1 implements PedidosService {
 	public void guardarPedido (Pedido pedido) {
 		
 			try(Connection con = ConectionLocator.getConnection();){
-				con.setAutoCommit(false);  // Para que no se haga autocommit
+			
 				String sql="insert into pedidos(producto,unidades,fecha, tienda) values(?,?,?,?)";
 				PreparedStatement ps=con.prepareStatement(sql);
 				
@@ -26,6 +26,7 @@ public class PedidosServiceImpl1 implements PedidosService {
 					ps.setString(4, pedido.getTienda());
 				
 					ps.execute();
+					
 			
 			}
 			catch(SQLException ex) {
