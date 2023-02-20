@@ -1,0 +1,3 @@
+module moduloclientecalculadora {
+	requires modulocalculadora;
+}
